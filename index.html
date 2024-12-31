@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Nipuna Wanniarachchi - Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Poppins:400,500,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #12d640;
+            --secondary-color: #09203a;
+            --text-color: #ffffff;
+            --bg-color: #040404;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+        
+        .header {
+            min-height: 100vh;
+            background: linear-gradient(rgba(9, 32, 58, 0.9), rgba(9, 32, 58, 0.9)), url('https://via.placeholder.com/1920x1080') center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .header-content {
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
+        }
+        
+        .header h2 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s;
+        }
+        
+        .navbar {
+            background: rgba(9, 32, 58, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .navbar-scrolled {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 0;
+        }
+        
+        .nav-link {
+            color: var(--text-color);
+            margin: 0 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .about-me {
+            background: rgba(9, 32, 58, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-img {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .skill-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li::before {
+            content: '▹';
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+        
+        .education-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .education-item::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 100%;
+            background: var(--primary-color);
+            left: 0;
+            top: 0;
+        }
+        
+        .education-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .education-item h5 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .experience-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .experience-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .project-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .project-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            transition: transform 0.3s;
+        }
+        
+        .project-item:hover .project-img img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .contact-info {
+            background: rgba(9, 32, 58, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            height: 100%;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;    
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            color: var(--text-color);
+            font-size: 2rem;
+            transition: all 0.3s;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .header {
+                padding: 100px 0;
+            }
+            
+            .about-me {
+                padding: 2rem;
+            }
+            
+            .skill-item,
+            .education-item,
+            .experience-item,
+            .project-item,
+            .contact-info {
+                padding: 1.5rem;
+            }
+            
+            .navbar-nav {
+                background: rgba(9, 32, 58, 0.95);
+                padding: 1rem;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list" style="color: white;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header" id="home">
+        <div class="container">
+            <div class="header-content">
+                <h1>Nipuna Wanniarachchi</h1>
+                <h2>Banker / CSR / SE Undergraduate</h2>
+                <div class="social-links">
+    <a href="http://www.linkedin.com/in/nipuna-wanniarachchi-a3b034299" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/NJayK9" target="_blank"><i class="bi bi-github"></i></a>
+    <a href="https://www.instagram.com/_nipuna.j_/?__pwa=1" target="_blank"><i class="bi bi-instagram"></i></a>
+</div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-me">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div class="profile-img">
+                            <img src="Prof.jpg" alt="Profile" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>I am committed to utilizing my skills in software development and technology to create impactful solutions. My passion for problem solving drives me to excel in fast paced environments, where I can contribute to innovative projects. With a strong dedication to continuous learning and professional growth, I aim to thrive in the field of software engineering.</p>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><strong>Birthday:</strong> September 15, 2000</li>
+                                    <li><strong>Age:</strong> 24</li>
+                                    <li><strong>Location:</strong> Piliyandala, Sri Lanka</li>
+                                    <li><strong>Email:</strong> nipunajwanniarachchi@gmail.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="education-item">
+                        <h4>HND in Software Engineering</h4>
+                        <h5>Saegis Campus | 2024 - Present</h5>
+                        <p>Currently pursuing a Higher National Diploma in Software Engineering with a focus on modern development practices and technologies.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="education-item">
+                        <h4>GCE Advanced Level</h4>
+                        <h5>Debarawewa National Collage | 2019 | Studied Commerce stream </h5>
+
+                        <h4>GCE Ordinary Level</h4>
+                        <h5>Mahanama Collage | 2016 </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>skills</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="skill-item">
+                        <h4>Programming Languages</h4>
+                        <ul class="skill-list">
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                            <li>Python</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="skill-item">
+                        <h4>Frameworks</h4>
+                        <ul class="skill-list">
+                            <li>Spring</li>
+                            <li>Django</li>
+                            <li>Angular</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="skill-item">
+                        <h4>Tools</h4>
+                        <ul class="skill-list">
+                            <li>Git</li>
+                            <li>VS Code</li>
+                            <li>MySQL</li>
+                            <li>Docker</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience</h2>
+            </div>
+            <div class="experience-item">
+                <h4>Customer Service Representative</h4>
+                <h5>Pan Asia Banking Corporation | May 2022 - Present</h5>
+                <ul>
+                    <li>Handle customer inquiries and provide comprehensive banking solutions</li>
+                    <li>Process transactions and maintain accurate customer records</li>
+                    <li>Collaborate with various departments to resolve complex customer issues</li>
+                    <li>Consistently maintain high customer satisfaction ratings</li>
+                    <li>Participate in training programs to enhance product knowledge</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projects</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="Project.png" alt="Project 1" class="img-fluid">
+                        </div>
+                        <div class="project-content">
+                            <h4>Hospital management system</h4>
+                            <p>Designed  Front end for the Hospital management system using HTML and CSS</p>
+                            <div class="d-flex gap-2">
+                                <a href="https://njayk9.github.io/" class="btn btn-primary">View the project</a>
+                                <a href="https://github.com/NJayK9/NJayK9.github.io" class="btn btn-outline-primary">Source Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="/api/placeholder/400/300" alt="Project 2" class="img-fluid">
+                        </div>
+                        <div class="project-content">
+                            <h4>Task management App</h4>
+                            <p>Its called Tomorrow</p>
+                            <p>Working on it..</p>
+                            <div class="d-flex gap-2">
+                                <a href="" class="btn btn-primary">View the Project</a>
+                                <a href="#" class="btn btn-outline-primary">Source Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="contact-info">
+                        <h4>Get in Touch</h4><br>
+
+                        <div class="contact-item">
+                            <i class="bi bi-envelope"></i>
+                            <p>nipunajwanniarachchi@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <p>No57/2, Dalthara, Piliyandala</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="bi bi-phone"></i>
+                            <p>+94 767683765</p>
+                        </div>
+                        <div class="social-links mt-4">
+                            <a href="https://www.linkedin.com/in/nipuna-wanniarachchi-a3b034299/"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://github.com/NJayK9"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/_nipuna.j_/?__pwa=1"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form class="contact-form p-4 rounded" style="background: rgba(9, 32, 58, 0.8);">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('navbar-scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('navbar-scrolled');
+            }
+        });
+
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+    </script>
+</body>
+</html>
